@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chrono Engine | Steampunk chronometer and sundial</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="steampunk-theme">
+    <div class="main-container">
+        <header class="brass-header">
+            <h1 class="plate-title">CHRONO-ENGINE</h1>
+            <p class="plate-subtitle">Victorian Precision Timekeeping & Solar Sundial</p>
+        </header>
+
+        <section class="chronometer-housing">
+            <div class="gear-container">
+                <div class="gear gear-large cw"></div>
+                <div class="gear gear-medium ccw"></div>
+                <div class="gear gear-small cw"></div>
+            </div>
+            <div class="clock-face" id="clockFace">
+                <div class="center-cap"></div>
+                <div class="hand hour-hand" id="hourHand"></div>
+                <div class="hand minute-hand" id="minuteHand"></div>
+                <div class="hand second-hand" id="secondHand"></div>
+            </div>
+            <div class="readout-panel">
+                <div class="digital-time" id="digitalTime">00:00:00</div>
+                <div class="antique-date" id="antiqueDate">Calculating epoch...</div>
+            </div>
+        </section>
+        <section class="sundial-section">
+            <div class="section-title">
+                <h2>Solar Sundial & Gnomon Shadow</h2>
+            </div>
+            <div class="sundial-plate" id="sundialPlate">
+                <div class="gnomon"></div>\
+                <div class="sundial-marking s-12">XII</div>
+                <div class="sundial-marking s-3">III</div>
+                <div class="sundial-marking s-6">VI</div>
+                <div class="sundial-marking s-9">IX</div>
+            </div>
+        </section>
+    </div>
+    <script src="app.js"></script>    
+</body>
+</html>
