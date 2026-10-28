@@ -17,7 +17,7 @@
 }
 body.steampunk-theme{
     background-color: var(--bg-color);
-    color: var(--bg-color);
+    color: var(--parchment);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -154,7 +154,7 @@ body.steampunk-theme{
 .sundial-plate{
     width: 100%;
     height: 180px;
-    background: radial-gradient(circle, #2c1d0c 0%, #150e96 100%);
+    background: radial-gradient(circle, #2c1d0c 0%, #150e06 100%);
     border: 3px solid var(--brass-dark);
     border-radius: 8px;
     position: relative;
@@ -167,7 +167,7 @@ body.steampunk-theme{
     border-right: 15px solid transparent;
     border-bottom: 50px solid var(--brass-primary);
     position: absolute;
-    bottom: 20px;
+    bottom: 35px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 2;
@@ -178,7 +178,7 @@ body.steampunk-theme{
     font-weight: bold;
     color: var(--brass-primary);
 }
-.s-12{ top: 10px;}
-.s-3{right: 15px;}
-.s-6{bottom: 10px;}
-.s-9{left: 15px;}
+.s-12{ top: 10px; left: 50%; transform: translateX(-50%);}
+.s-3{right: 15px; top:50%; transform: translateX(-50%);}
+.s-6{bottom: 10px; left: 50%; transform: translateX(-50%);}
+.s-9{left: 15px; top: 50%; transform: translateX(-50%);}
