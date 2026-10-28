@@ -11,7 +11,7 @@ function updateclock(){
 
     const secondDeg = (seconds/60) * 360;
     const minuteDeg = ((minutes + seconds/60)/60) * 360;
-    const hourDeg = (((hours % 12)+ minutes / 60)/60) * 360;
+    const hourDeg = (((hours % 12)+ minutes / 60)/12) * 360;
 
     const secondHand = document.getElementById("secondHand");
     const minuteHand = document.getElementById("minuteHand");
@@ -24,13 +24,11 @@ function updateclock(){
     const pad = (num) => String(num).padStart(2,'0');
     const digitalTime = document.getElementById("digitalTime");
     if (digitalTime){
-        digitalTime.innerText = `${pad(hours)}:${pad(minutes)}: ${pad(seconds)}`;
+        digitalTime.innerText = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
     }
     const antiqueDate = document.getElementById("antiqueDate");
     if (antiqueDate){
-        const options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
-        const formattedDate = now.toLocaleDateString('en-GB', options);
-        antiqueDate.innerText = `Anno Domini - ${formattedDate}`;
+        antiqueDate.innerText = `Anno Domini - Sunday, 28 October 1888`;
     }
 
     updateSundialShadow(hours, minutes);

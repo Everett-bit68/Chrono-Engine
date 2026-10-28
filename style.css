@@ -64,7 +64,7 @@ body.steampunk-theme{
     flex-direction: column;
     align-items: center;
     position: relative;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.8, inset 0 0 40px rgba(0,0,0,0.7));
+    box-shadow: 0 12px 30px rgba(0,0,0,0.8), inset 0 0 40px rgba(0,0,0,0.7);
     overflow: hidden;
 }
 .clock-face{
@@ -90,22 +90,36 @@ body.steampunk-theme{
     z-index: 10;
 }
 .hand{
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: bottom center;
+    border-radius: 4px;
+}
+.hour-hand{
     width: 6px;
-    height: 75px;
+    height: 50px;
+    margin-left: -3px;
+    background-color: var(--text-dark);
+    z-index: 3;
+}
+.minute-hand{
+    width: 4px;
+    height: 70px;
+    margin-left: -2px;
     background-color: #554225;
-    transform: translateX(-50%) rotate(0deg);
     z-index: 4;
 }
 .second-hand{
     width: 2px;
     height: 85px;
+    margin-left: -1px;
     background-color: var(--copper);
-    transform: translateX(-50%) rotate(0deg);
     z-index: 5;
 }
 .readout-panel{
     text-align: center;
-    background: rgba(0,0,0,0.4);
+    background: rgba(42, 21, 8, 0.85);
     border: 2px solid var(--brass-dark);
     border-radius: 6px;
     padding: 12px 24px;
@@ -119,11 +133,9 @@ body.steampunk-theme{
 }
 .antique-date{
     font-size: 13px;
-    color: var(--panel-bg);
-    border: 6px solid #4a3319;
-    border-radius: 12px;
-    padding: 24px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.8);
+    color: var(--parchment);
+    letter-spacing: 1px;
+    font-weight: bold;
 }
 .section-title h2{
     font-size: 16px;
@@ -132,6 +144,13 @@ body.steampunk-theme{
     margin-bottom: 16px;
     letter-spacing: 1px;
 }
+.sundial-section{
+    background-color: var(--panel-bg);
+    border: 6px solid #4a3319;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.8);
+}
 .sundial-plate{
     width: 100%;
     height: 180px;
@@ -139,9 +158,7 @@ body.steampunk-theme{
     border: 3px solid var(--brass-dark);
     border-radius: 8px;
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    overflow: hidden;
 }
 .gnomon{
     width: 0;
@@ -151,6 +168,9 @@ body.steampunk-theme{
     border-bottom: 50px solid var(--brass-primary);
     position: absolute;
     bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
 }
 .sundial-marking{
     position: absolute;
