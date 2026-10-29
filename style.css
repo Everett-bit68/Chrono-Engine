@@ -25,6 +25,22 @@ body.steampunk-theme{
     padding: 24px;
     background-image: radial-gradient(circle, #22150a 0%, #120d08 100%);
 }
+body.steampunk-theme.time-day{
+    background-image: radial-gradient(circle, #33200d 0%, #150e06 100%);
+    --glow: rgba(212, 175, 55,0.4);
+}
+body.steampunk-theme.time-evening{
+    background-image: radial-gradient(circle, #2b1708 0%, #100804 100%);
+    --brass-primary: #c29b38;
+    --glow: rgba(184,115,51,0.35);
+}
+body.steampunk-theme.time-night{
+    background-image: radial-gradient(circle, #18100c 0%, #080503 100%);
+    --brass-primary: #9e8029;
+    --brass-dark: #5c4713;
+    --glow: rgba(100, 90,60,0.15);
+    filter: brightness(0.9);
+}
 .main-container{
     width: 100%;
     max-width: 650px;

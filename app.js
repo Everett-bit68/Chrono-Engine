@@ -32,8 +32,20 @@ function updateclock(){
     }
 
     updateSundialShadow(hours, minutes);
+    updateAtmospherelighting(hours);
 }
+function updateAtmospherelighting(hours){
+    const body = document.body;
 
+    body.classList.remove("time-day","time-evening","time-night");
+    if (hours >= 6 && hours < 17){
+        body.classList.add("time-day");
+    } else if(hours >=17 && hours < 20) {
+        body.classList.add("time-evening");
+    } else {
+        body.classList.add("time-night");
+    }
+}
 function updateSundialShadow(hours, minutes){
     const gnomonShadow = document.getElementById("gnomonShadow");
     if (!gnomonShadow) return;
@@ -43,8 +55,13 @@ function updateSundialShadow(hours, minutes){
     const sunset = 18 * 60;
 
     if(totalMinutes < sunrise || totalMinutes > sunset){
-        gnomonShadow.style.opacity = "0.2";
-        gnomonShadow.style.transform = "rotate(90deg) scaleY(0.5)";
+
+        let nightMinutes = totalMinutes > sunset ? totalMinutes - sunset : totalMinutes + (24 * 60 - sunset);
+        const nightProgress = nightMinutes / (24 * 60 - (sunset - sunrise));
+
+        const nightAngle = -70 + (nightProgress * 140);
+        gnomonShadow.style.opacity = "0.7";
+        gnomonShadow.style.transform = "rotate(${nightAngle}0deg)";
     } else{
         const dayProgress = (totalMinutes - sunrise) / (sunset - sunrise);
         const angle = -70 + (dayProgress * 140);
