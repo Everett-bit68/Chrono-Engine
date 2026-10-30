@@ -43,6 +43,18 @@
                 <div class="sundial-marking s-9">IX</div>
             </div>
         </section>
+        <section class="pressure-section">
+            <div class="section-title">
+                <h2>Boiler Pressure Manometer</h2>
+            </div>
+            <div class="gauge-container" onclick="releasePressure()" title="Click to vent steam pressure">
+                <div class="gauge-face">
+                    <div class="gauge-needle" id="gaugeNeedle"></div>
+                    <div class="guage-center"></div>
+                </div>
+                <div class="guage-status" id="gaugeStatus">Pressure Stable</div>
+            </div>
+        </section>
     </div>
     <script src="app.js"></script>    
 </body>

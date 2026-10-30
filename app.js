@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 });
 
 let audioCtx = null;
+let currentPressure = 0;
 
 function initAudio(){
     if (!audioCtx){
@@ -45,6 +46,7 @@ function updateclock(){
 
     updateSundialShadow(hours, minutes);
     updateAtmospherelighting(hours);
+    updatePressure();
 }
 function updateAtmospherelighting(hours){
     const body = document.body;
@@ -121,4 +123,36 @@ function playSteamhiss(){
     filter.connect(gain);
     gain.connect(audioCtx.destination);
     noise.start();
+}
+function updatePressure(){
+    if (currentPressure < 100){
+        currentPressure += 0.8;
+        if (currentPressure > 100) currentPressure = 100;
+    }
+
+    const needle = document.getElementById("gaugeNeedle");
+    const status = document.getElementById("gaugeStatus");
+
+    if (needle){
+        const angle = -90 + (currentPressure / 100) * 180;
+        needle.style.transform = `translateX(-50%) rotate(${angle}deg)`;
+    }
+
+    if (status){
+        if (currentPressure > 85){
+            status.innerText = "WARNING: OVERPRESSURE!";
+            status.style.color = "#ff4500";
+        } else if (currentPressure > 50){
+            status.innerText = "Pressure Building...";
+            status.style.color="var(--copper)";
+        } else {
+            status.innerText="Pressure Stable";
+            status.style.color ="var(--brass-primary)";
+        }
+    }
+}
+function releasePressure(){
+    playSteamhiss();
+    currentPressure = 0;
+    updatePressure();
 }
