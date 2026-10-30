@@ -8,6 +8,8 @@ let audioCtx = null;
 function initAudio(){
     if (!audioCtx){
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    } else if (audioCtx.state === 'suspended'){
+        audioCtx.resume();
     }
 }
 function updateclock(){
