@@ -3,6 +3,13 @@ document.addEventListener("DOMContentLoaded", () =>{
     setInterval(updateclock, 1000);
 });
 
+let audioCtx = null;
+
+function initAudio(){
+    if (!audioCtx){
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+}
 function updateclock(){
     const now = new Date();
     const seconds = now.getSeconds();
@@ -17,7 +24,10 @@ function updateclock(){
     const minuteHand = document.getElementById("minuteHand");
     const hourHand = document.getElementById("hourHand");
 
-    if(secondHand) secondHand.style.transform= `rotate(${secondDeg}deg)`;
+    if(secondHand){
+        secondHand.style.transform= `rotate(${secondDeg}deg)`;
+        playMechanicalTick();
+    } 
     if (minuteHand) minuteHand.style.transform = `rotate(${minuteDeg}deg)`;
     if (hourHand) hourHand.style.transform= `rotate(${hourDeg}deg)`;
 
@@ -58,14 +68,55 @@ function updateSundialShadow(hours, minutes){
 
         let nightMinutes = totalMinutes > sunset ? totalMinutes - sunset : totalMinutes + (24 * 60 - sunset);
         const nightProgress = nightMinutes / (24 * 60 - (sunset - sunrise));
-
         const nightAngle = -70 + (nightProgress * 140);
         gnomonShadow.style.opacity = "0.7";
-        gnomonShadow.style.transform = "rotate(${nightAngle}0deg)";
+        gnomonShadow.style.transform = `rotate(${nightAngle}deg)`;
     } else{
         const dayProgress = (totalMinutes - sunrise) / (sunset - sunrise);
         const angle = -70 + (dayProgress * 140);
         gnomonShadow.style.opacity = "0.8";
         gnomonShadow.style.transform = `rotate(${angle}deg)`;
     }
+}
+function playMechanicalTick() {
+    if (!audioCtx) return;
+    
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(1200, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.015);
+    gain.gain.setValueAtTime(0.15,audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.015);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.015);
+}
+
+function playSteamhiss(){
+    initAudio();
+    if (!audioCtx) return;
+
+    const buffersize = audioCtx.sampleRate * 0.4;
+    const buffer = audioCtx.createBuffer(1, buffersize, audioCtx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i=0; i < buffersize; i++){
+        data[i] = Math.random() * 2 - 1;
+    }
+    const noise = audioCtx.createBufferSource();
+    noise.buffer= buffer;
+
+    const filter = audioCtx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(1000, audioCtx.currentTime);
+    filter.Q.setValueAtTime(3, audioCtx.currentTime);
+    const gain = audioCtx.createGain();
+    gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+    noise.connect(filter);
+    filter.connect(gain);
+    gain.connect(audioCtx.destination);
+    noise.start();
 }
