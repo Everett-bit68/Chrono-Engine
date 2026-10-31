@@ -118,7 +118,7 @@ function playMechanicalTick() {
 }
 
 function playSteamhiss(){
-    if (!isMuted) return;
+    if (isMuted) return;
     initAudio();
     if (!audioCtx) return;
 
@@ -164,11 +164,6 @@ function updatePressure(){
             gearContainer.style.setProperty('--gear-speed',`${speedFactor}s`);
         }
     }
-        const gearContainer = document.querySelector('.gear-container');
-    if (gearContainer){
-        gearContainer.style.setProperty('--gear-speed', `${speedFactor}s`);
-    }
-
     if (status){
         if (currentPressure > 85){
             status.innerText = "WARNING: OVERPRESSURE!";
