@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 
 let audioCtx = null;
 let currentPressure = 0;
+let lastSpeedFactor = 0;
 
 function initAudio(){
     if (!audioCtx){
@@ -137,8 +138,15 @@ function updatePressure(){
         const angle = -90 + (currentPressure / 100) * 180;
         needle.style.transform = `translateX(-50%) rotate(${angle}deg)`;
     }
-    const speedFactor = Math.max(0.8,8 - (currentPressure / 14));
-    const gearContainer = document.querySelector('.gear-container');
+    const speedFactor = Number(Math.max(0.8,8 - (currentPressure / 14)).toFixed(1));
+    if (speedFactor !== lastSpeedFactor){
+        lastSpeedFactor = speedFactor;
+        const gearContainer = document.querySelector('.gear-container');
+        if(gearContainer){
+            gearContainer.style.setProperty('--gear-speed',`${speedFactor}s`);
+        }
+    }
+        const gearContainer = document.querySelector('.gear-container');
     if (gearContainer){
         gearContainer.style.setProperty('--gear-speed', `${speedFactor}s`);
     }
