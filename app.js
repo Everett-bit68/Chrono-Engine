@@ -140,7 +140,7 @@ function updatePressure(){
     const speedFactor = Math.max(0.8,8 - (currentPressure / 14));
     const gears = document.querySelectorAll('.gear');
     gears.forEach(gear =>{
-        gear.style.animationDuration = '${speedFactor}s';
+        gear.style.animationDuration = `${speedFactor}s`;
     });
 
     if (status){
