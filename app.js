@@ -138,10 +138,10 @@ function updatePressure(){
         needle.style.transform = `translateX(-50%) rotate(${angle}deg)`;
     }
     const speedFactor = Math.max(0.8,8 - (currentPressure / 14));
-    const gears = document.querySelectorAll('.gear');
-    gears.forEach(gear =>{
-        gear.style.animationDuration = `${speedFactor}s`;
-    });
+    const gearContainer = document.querySelector('.gear-container');
+    if (gearContainer){
+        gearContainer.style.setProperty('--gear-speed', `${speedFactor}s`);
+    }
 
     if (status){
         if (currentPressure > 85){
