@@ -12,7 +12,15 @@
             <h1 class="plate-title">CHRONO-ENGINE</h1>
             <p class="plate-subtitle">Victorian Precision Timekeeping & Solar Sundial</p>
         </header>
-
+        <div class="mute-switch-container" onclick="toggleMute()" title="Click to toggle mechanical audio">
+            <div class="switch-label">Acoustic Audio</div>
+            <div class="knife-switch" id="knifeSwitch">
+                <div class="switch-base"></div>
+                <div class="switch-blade" id="switchBlade"></div>
+                <div class="switch-handle"></div>
+            </div>
+            <div class="switch-status" id="switchStatus">ENGAGED</div>
+        </div>
         <section class="chronometer-housing">
             <div class="gear-container">
                 <div class="gear gear-large cw"></div>

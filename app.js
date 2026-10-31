@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 let audioCtx = null;
 let currentPressure = 0;
 let lastSpeedFactor = 0;
+let isMuted = false;
 
 function initAudio(){
     if (!audioCtx){
@@ -83,7 +84,23 @@ function updateSundialShadow(hours, minutes){
         gnomonShadow.style.transform = `rotate(${angle}deg)`;
     }
 }
+function toggleMute(){
+    isMuted = !isMuted;
+    const container = document.querySelector('.mute-switch-container');
+    const statusText = document.getElementById('switchStatus');
+
+    if(isMuted){
+        container.classList.add('muted');
+        if (statusText) statusText.innerText = "SILENCED";
+        if (statusText) statusText.style.color = "#5c4713";
+    } else {
+        container.classList.remove('muted');
+        if (statusText) statusText.innerText = "ENGAGED";
+        if (statusText) statusText.style.color = "var(--brass-primary)";
+    }
+}
 function playMechanicalTick() {
+    if (isMuted) return;
     if (!audioCtx) return;
     
     const osc = audioCtx.createOscillator();
@@ -101,6 +118,7 @@ function playMechanicalTick() {
 }
 
 function playSteamhiss(){
+    if (!isMuted) return;
     initAudio();
     if (!audioCtx) return;
 
