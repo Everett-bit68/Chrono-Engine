@@ -168,6 +168,10 @@ function updatePressure(){
         if (currentPressure > 85){
             status.innerText = "WARNING: OVERPRESSURE!";
             status.style.color = "#ff4500";
+            if(Math.random() < 0.15){
+                playSteamhiss();
+                spawnSteam();
+            }
         } else if (currentPressure > 50){
             status.innerText = "Pressure Building...";
             status.style.color="var(--copper)";
@@ -177,8 +181,29 @@ function updatePressure(){
         }
     }
 }
+function spawnSteam(){
+    const container = document.querySelector('.main-container');
+    if (!container) return;
+    for (let i = 0; i < 12; i++){
+        const puff = document.createElement('div');
+        puff.classList.add('steam-puff');
+        const size = Math.random() * 35 + 25;
+        const randX = (Math.random() - 0.5) * 100 + 'px';
+        const startX = Math.random() * 240 - 120 + 'px';
+        puff.style.width = '${size}px';
+        puff.style.height = '${size}px';
+        puff.style.setProperty('--rand-x',randX);
+        puff.style.top = '40px';
+        puff.style.left = `calc(50% + {startX})`;
+        container.appendChild(puff);
+        setTimeout(()=>{
+            puff.remove();
+        }, 900);
+    }
+}
 function releasePressure(){
     playSteamhiss();
+    spawnSteam();
     currentPressure = 0;
     updatePressure();
 }
