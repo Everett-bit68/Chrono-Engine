@@ -356,9 +356,9 @@ function initTelegraphTicker(){
     }, 25000);
 }
 function adjustThrottle(val){
-    aetherMultiplier - parseFloat(val);
+    aetherMultiplier = parseFloat(val);
     playTelegraphTone();
-    const label = document.getElementById("throttle-value");
+    const label = document.getElementById("throttleValue");
     if (!label) return;
     let desc = "Standard";
     if (aetherMultiplier < 1.0) desc = "Sub-Optimal / Idle";
