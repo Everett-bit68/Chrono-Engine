@@ -10,6 +10,7 @@ let lastSpeedFactor = 0;
 let isMuted = false;
 let MainspringPower = 100;
 let isEngineRunDown = false;
+let aetherMultiplier = 1.0;
 const historicalDispatches = [
     "LONDON: Consols steady at 98 1/4. Weather overcast",
     "PARIS: Pneumatic postal tube network operating at high pressure",
@@ -183,7 +184,7 @@ function updatelunarsubdial(){
 }
 function updatePressure(){
     if (currentPressure < 100){
-        currentPressure += 0.8;
+        currentPressure += 0.8 * aetherMultiplier;
         if (currentPressure > 100) currentPressure = 100;
     }
 
@@ -251,7 +252,7 @@ function releasePressure(){
 }
 function updatePowerReserve(){
     if (MainspringPower > 0){
-        MainspringPower -= 0.02;
+        MainspringPower -= 0.001;
         if (MainspringPower <= 0){
             MainspringPower = 0;
             isEngineRunDown = true;
@@ -353,4 +354,20 @@ function initTelegraphTicker(){
         }
         screen.scrollTop = screen.scrollHeight;
     }, 25000);
+}
+function adjustThrottle(val){
+    aetherMultiplier - parseFloat(val);
+    playTelegraphTone();
+    const label = document.getElementById("throttle-value");
+    if (!label) return;
+    let desc = "Standard";
+    if (aetherMultiplier < 1.0) desc = "Sub-Optimal / Idle";
+    else if (aetherMultiplier > 1.0 && aetherMultiplier <= 2.0) desc = "Boosted Output";
+    else if (aetherMultiplier > 2.0) desc = "WARNING: OVERDRIVE";
+    label.innerText = `${aetherMultiplier.toFixed(1)}x (${desc})`;
+    const gearContainer = document.querySelector('.gear-container');
+    if (gearContainer){
+        let baseSeconds = 8.0 / aetherMultiplier;
+        gearContainer.style.setProperty('--gear-speed',`${baseSeconds}s`);
+    }
 }
