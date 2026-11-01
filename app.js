@@ -53,6 +53,7 @@ function updateclock(){
     updateAtmospherelighting(hours);
     updatePressure();
     updatelunarsubdial();
+    updatePowerReserve();
 }
 function updateAtmospherelighting(hours){
     const body = document.body;
@@ -248,14 +249,14 @@ function updatePowerReserve(){
         }
     }
     const fill = document.getElementById("powerBarFill");
-    const status = document.getElementById("powerstatus");
+    const status = document.getElementById("powerStatus");
     if (fill) fill.style.width = `${MainspringPower}%`;
     if (status){
         if (isEngineRunDown){
             status.innerText = "UNWOUND - CLICK TO WIND";
             status.style.color = "#ff4500";
         } else {
-            status.innerText = `Tension: ${Math.ceil(MainspringPower)} Units`;
+            status.innerText = `Tension: ${Math.floor(MainspringPower)} Units`;
             status.style.color = "var(--brass-primary)";
         }
     }
