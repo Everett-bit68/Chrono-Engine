@@ -23,9 +23,21 @@
         </div>
         <section class="chronometer-housing">
             <div class="gear-container">
-                <div class="gear gear-large cw"></div>
-                <div class="gear gear-medium ccw"></div>
-                <div class="gear gear-small cw"></div>
+                <svg class="gear gear-large cw" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="42" fill="none" stroke="var(--brass-primary)" stroke-width="12" stroke-dasharray="14 8"></circle>
+                    <circle cx="50" cy="50" r="28" fill="var(--brass-dark)" stroke="var(--brass-primary)" stroke-width="3"></circle>
+                    <circle cx="50" cy="50" r="10" fill="var(--panel-bg)" stroke="var(--brass-primary)" stroke-width="2"></circle>
+                </svg>
+                <svg class="gear gear-medium ccw" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="var(--copper)" stroke-width="12" stroke-dasharray="14 8"></circle>
+                    <circle cx="50" cy="50" r="25" fill="var(--brass-dark)" stroke="var(--copper)" stroke-width="3"></circle>
+                    <circle cx="50" cy="50" r="8" fill="var(--panel-bg)" stroke="var(--copper)" stroke-width="2"></circle>
+                </svg>
+                <svg class="gear gear-small cw" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="38" fill="none" stroke="var(--brass-primary)" stroke-width="16" stroke-dasharray="10 5"></circle>
+                    <circle cx="50" cy="50" r="20" fill="var(--brass-dark)" stroke="var(--brass-primary)" stroke-width="3"></circle>
+                    <circle cx="50" cy="50" r="6" fill="var(--panel-bg)" stroke="var(--brass-primary)" stroke-width="2"></circle>
+                </svg>
             </div>
             <div class="clock-face" id="clockFace">
                 <div class="center-cap"></div>

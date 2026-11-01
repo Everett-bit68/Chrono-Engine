@@ -47,6 +47,7 @@ body.steampunk-theme.time-night{
     display: flex;
     flex-direction: column;
     gap: 24px;
+    position: relative;
 }
 .brass-header{
     background: linear-gradient(135deg, var(--brass-dark), var(--brass-primary),var(--brass-dark));
@@ -285,43 +286,22 @@ body.steampunk-theme.time-night{
     box-shadow: inset 0 2px 5px rgba(0,0,0,0.8);
 }
 .gear{
-    position: relative;
-    background: radial-gradient(circle, var(--brass-dark) 30%, var(--brass-primary) 70%, var(--mahogany) 100%);
-    clip-path: polygon(
-        50% 0%, 57% 5%, 57% 12%, 67% 15%, 74% 9%, 81% 16%, 77% 24%, 85% 30%, 93% 26%,
-        97% 35%, 89% 41%, 91% 50%, 89% 59%, 97% 65%, 93% 74%, 85% 70%,77% 76%, 81% 84%,
-        74% 91%, 67% 85%, 57% 88%, 57% 95%, 50% 100%, 43% 95%, 43% 88%,33% 85%, 26% 91%,
-        19% 84%, 23% 76%, 15% 70%, 7% 74%, 3% 65%, 11% 59%, 9% 50%, 11% 41%, 3% 35%,
-        7% 26%, 15% 30%, 23% 24%, 19% 16%, 26% 9%, 33% 15%, 43% 12%, 43% 5%
-    );
-    border: 2px solid var(--mahogany);
-    border-radius: 50%;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
     animation: spin var(--gear-speed, 8s) linear infinite;
-}
-.gear::after{
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 35%;
-    height: 35%;
-    background-color: var(--panel-bg);
-    border: 1px solid var(--brass-primary);
-    border-radius: 50%;
-    transform: translate(-50%,-50%);
+    will-change: transform;
+    transform: translateZ(0);
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6));
 }
 .gear-large{
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
 }
 .gear-medium{
-    width: 34px;
-    height: 34px;
+    width: 38px;
+    height: 38px;
 }
 .gear-small{
-    width: 22px;
-    height: 22px;
+    width: 26px;
+    height: 26px;
 }
 .gear.cw{
     animation-direction: normal;
@@ -392,16 +372,16 @@ body.steampunk-theme.time-night{
     width: 75px;
     text-align: right;
 }
-.steam-punk{
+.steam-puff{
     position: absolute;
     background: radial-gradient(circle, rgba(244,232, 193,0.85)0%, rgba(210,200,180,0.4)60%,transparent 100%);
     border-radius: 50%;
     pointer-events: none;
     filter: blur(5px);
     animation: rise-and-fade 0.9s ease-out forwards;
-    z-index: 100;
+    z-index: 1000;
 }
-@keyframes spin{
+@keyframes rise-and-fade{
     0%{
         transform: (0,0) scale(0.4);
         opacity: 0.9;
@@ -410,6 +390,8 @@ body.steampunk-theme.time-night{
         transform: translate(var(--rand-x),-75px)scale(2.2);
         opacity: 0;
     }
+}
+@keyframes spin{
     from {transform: rotate(0deg);}
     to {transform: rotate(360deg);}
 }

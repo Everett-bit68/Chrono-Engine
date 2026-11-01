@@ -156,12 +156,16 @@ function updatePressure(){
         const angle = -90 + (currentPressure / 100) * 180;
         needle.style.transform = `translateX(-50%) rotate(${angle}deg)`;
     }
-    const speedFactor = Number(Math.max(0.8,8 - (currentPressure / 14)).toFixed(1));
+    let speedFactor = '8s';
+    if(currentPressure > 75) speedFactor ='1.5s';
+    else if (currentPressure > 50) speedFactor = '3s';
+    else if (currentPressure > 25) speedFactor = '5s';
+    else speedFactor = '8s';
     if (speedFactor !== lastSpeedFactor){
         lastSpeedFactor = speedFactor;
         const gearContainer = document.querySelector('.gear-container');
         if(gearContainer){
-            gearContainer.style.setProperty('--gear-speed',`${speedFactor}s`);
+            gearContainer.style.setProperty('--gear-speed',speedFactor);
         }
     }
     if (status){
@@ -190,11 +194,11 @@ function spawnSteam(){
         const size = Math.random() * 35 + 25;
         const randX = (Math.random() - 0.5) * 100 + 'px';
         const startX = Math.random() * 240 - 120 + 'px';
-        puff.style.width = '${size}px';
-        puff.style.height = '${size}px';
+        puff.style.width = `${size}px`;
+        puff.style.height = `${size}px`;
         puff.style.setProperty('--rand-x',randX);
         puff.style.top = '40px';
-        puff.style.left = `calc(50% + {startX})`;
+        puff.style.left = `calc(50% + ${startX})`;
         container.appendChild(puff);
         setTimeout(()=>{
             puff.remove();
