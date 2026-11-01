@@ -57,11 +57,14 @@
                 <div class="digital-time" id="digitalTime">00:00:00</div>
                 <div class="antique-date" id="antiqueDate">Calculating epoch...</div>
             </div>
-            <div class="readout-panel power-reserve-panel" onclick="windMainSpring()" title="Click to wind mainspring">
-                <div class="power-bar-bg">
-                    <div class="power-bar-fill" id="powerBarFill"></div>
+            <div class="power-wrapper">
+                <div class="power-label">Mainspring Power Remaining</div>
+                <div class="readout-panel power-reserve-panel" onclick="windMainSpring()" title="Click to wind mainspring">
+                    <div class="power-bar-bg">
+                        <div class="power-bar-fill" id="powerBarFill"></div>
+                    </div>
+                    <div class="power-status" id="powerStatus">Tension: 100 Units</div>
                 </div>
-                <div class="power-status" id="powerStatus">Tension: 100 Units</div>
             </div>
         </section>
         <section class="sundial-section">

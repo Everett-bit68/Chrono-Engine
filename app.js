@@ -7,6 +7,8 @@ let audioCtx = null;
 let currentPressure = 0;
 let lastSpeedFactor = 0;
 let isMuted = false;
+let MainspringPower = 100;
+let isEngineRunDown = false;
 
 function initAudio(){
     if (!audioCtx){
@@ -16,6 +18,7 @@ function initAudio(){
     }
 }
 function updateclock(){
+    if (isEngineRunDown) return;
     const now = new Date();
     const seconds = now.getSeconds();
     const minutes = now.getMinutes();
@@ -234,4 +237,44 @@ function releasePressure(){
     spawnSteam();
     currentPressure = 0;
     updatePressure();
+}
+function updatePowerReserve(){
+    if (MainspringPower > 0){
+        MainspringPower -= 0.02;
+        if (MainspringPower <= 0){
+            MainspringPower = 0;
+            isEngineRunDown = true;
+            triggerEngineHalt();
+        }
+    }
+    const fill = document.getElementById("powerBarFill");
+    const status = document.getElementById("powerstatus");
+    if (fill) fill.style.width = `${MainspringPower}%`;
+    if (status){
+        if (isEngineRunDown){
+            status.innerText = "UNWOUND - CLICK TO WIND";
+            status.style.color = "#ff4500";
+        } else {
+            status.innerText = `Tension: ${Math.ceil(MainspringPower)} Units`;
+            status.style.color = "var(--brass-primary)";
+        }
+    }
+}
+function triggerEngineHalt(){
+    playSteamhiss();
+    const gearContainer = document.querySelector('.gear-container');
+    if (gearContainer){
+        gearContainer.style.setProperty('--gear-speed','999999s');
+    }
+}
+function windMainSpring(){
+    MainspringPower = 100;
+    isEngineRunDown = false;
+    updatePressure();
+    playMechanicalTick();
+    const status = document.getElementById("powerStatus")
+    if (status){
+        status.innerText = "Tension: 100 Units";
+        status.style.color = "var(--brass-primary)";
+    }
 }
