@@ -92,6 +92,23 @@
             </div>
             <div class="gauge-status" id="gaugeStatus">Pressure Stable</div>
         </section>
+        <section class="telegraph-section">
+            <div class="section-title">
+                <h2>Telegraph & Dispatch Log</h2>
+            </div>
+            <div class="telegraph-panel">
+                <div class="ticker-screen" id="tickerScreen">
+                    <div class="dispatch-line">[SYSTEM] Telegraph line initalized. Awaiting transmission...</div>
+                </div>
+                <div class="telegraph-controls">
+                    <button class="telegraph-key" onclick="sendTelegraphPulse()" title="Click to transmit Morse Pulse">
+                        <div class="brass-knob"></div>
+                        <span class="key-label">TRANSMIT KEY</span>
+                    </button>
+                    <div class="dispatch-status" id="telegraphStatus">Line Clear</div>
+                </div>
+            </div>
+        </section>
     </div>
     <script src="app.js"></script>    
 </body>

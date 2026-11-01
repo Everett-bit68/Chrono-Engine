@@ -480,6 +480,88 @@ body.steampunk-theme.time-night{
     letter-spacing: 1px;
     text-transform: uppercase;
 }
+.telegraph-section{
+    background-color: var(--panel-bg);
+    border: 6px solid #4a3319;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.8);
+}
+.telegraph-panel{
+    background: rgba(12,8,4,0.9);
+    border: 2px solid var(--brass-dark);
+    border-radius: 6px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.ticker-screen{
+    height: 110px;
+    background: #090705;
+    border: 1px inset var(--brass-dark);
+    border-radius: 4px;
+    padding: 10px;
+    overflow-y: auto;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 11px;
+    color: var(--brass-primary);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.8);
+}
+.dispatch-line{
+    opacity: 0.85;
+    letter-spacing: 0.5px;
+    word-break: break-all;
+}
+.dispatch-line.incoming{
+    color: var(--parchment);
+}
+.dispatch-line.user-sent{
+    color: var(--copper);
+}
+.telegraph-controls{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.telegraph-key{
+    background: linear-gradient(135deg, var(--brass-dark), var(--brass-primary));
+    border: 2px solid #5a4512;
+    border-radius: 6px;
+    padding: 8px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    transition: transform 0.1s ease;
+}
+.telegraph-key:active{
+    transform: translateY(2px);
+}
+.brass-knob{
+    width: 14px;
+    height: 14px;
+    background: var(--mahogany);
+    border: 2px solid var(--brass-primary);
+    border-radius: 50%;
+}
+.key-label{
+    font-size: 11px;
+    font-weight: bold;
+    color: var(--mahogany);
+    letter-spacing: 1px;
+}
+.dispatch-status{
+    font-size: 11px;
+    color: var(--brass-primary);
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
 @keyframes rise-and-fade{
     0%{
         transform: translate(0,0) scale(0.4);

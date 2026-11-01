@@ -9,6 +9,15 @@ let lastSpeedFactor = 0;
 let isMuted = false;
 let MainspringPower = 100;
 let isEngineRunDown = false;
+const historicalDispatches = [
+    "LONDON: Consols steady at 98 1/4. Weather overcast",
+    "PARIS: Pneumatic postal tube network operating at high pressure",
+    "BERLIN: Ironworks report record pig-iron production this quarter",
+    "NEW YORK: Transatlantic cable traffic moving without interruption",
+    "NOTICE: Atmospheric pressure fluctuations detected over North Sea",
+    "CAIRO: Suez Canal maritime transit clear of obstructions",
+    "AETHER-NET: Chronometer synchronization check verified across quadrants"
+];
 
 function initAudio(){
     if (!audioCtx){
@@ -279,3 +288,59 @@ function windMainSpring(){
         status.style.color = "var(--brass-primary)";
     }
 }
+function playTelegraphTone(){
+    if (isMuted) return;
+    initAudio();
+    if (!audioCtx) return;
+
+    const osc = audioCtx.createOscillator();
+    const gain =audioCtx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime +0.05);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.05);
+}
+function sendTelegraphPulse(){
+    playTelegraphTone();
+    const screen = document.getElementById("tickerScreen");
+    const status = document.getElementById("telegraphStatus");
+    if (status) status.innerText = "Transmitting Pulse...";
+    if (screen){
+        const line = document.createElement("div");
+        line.classList.add("dispatch-line","user-sent");
+        line.innerText = `> [TRANSMISSION SENT] . . - - . . (Morse Pulse Clicked)`;
+        screen.appendChild(line);
+        screen.scrollTop = screen.scrollHeight;
+    }
+    setTimeout(() =>{
+        if (status) status.innerText = "Line Clear";
+    }, 1000);
+}
+function initTelegraphTicker(){
+    setInterval(()=>{
+        if (isEngineRunDown) return;
+        const screen = document.getElementById("tickerScreen");
+        if(!screen) return;
+        const randomMsg = historicalDispatches[Math.floor(Math.random() * historicalDispatches.length)];
+        const timestamp = new Date().toLocaleDateString();
+        const line = document.createElement('div');
+        line.classList.add("dispatch-line","incoming");
+        line.innerText = `[${timestamp}] ${randomMsg}`;
+        screen.appendChild(line);
+        if(screen.children.length > 20){
+            screen.removeChild(screen.children[0]);
+        }
+        screen.scrollTop = screen.scrollHeight;
+    }, 25000);
+}
+document.addEventListener("DOMContentLoaded",()=>{
+    updateclock();
+    setInterval(updateclock, 1000);
+    initTelegraphTicker();
+});
