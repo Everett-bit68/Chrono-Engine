@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () =>{
     updateclock();
     setInterval(updateclock, 1000);
+    initTelegraphTicker();
 });
 
 let audioCtx = null;
@@ -302,8 +303,6 @@ function playTelegraphTone(){
     osc.connect(gain);
     gain.connect(audioCtx.destination);
     osc.start();
-    osc.stop(audioCtx.destination);
-    osc.start();
     osc.stop(audioCtx.currentTime + 0.05);
 }
 function sendTelegraphPulse(){
@@ -327,7 +326,16 @@ function initTelegraphTicker(){
         if (isEngineRunDown) return;
         const screen = document.getElementById("tickerScreen");
         if(!screen) return;
-        const randomMsg = historicalDispatches[Math.floor(Math.random() * historicalDispatches.length)];
+        let selectedMsg = "";
+        if(Math.random() < 0.5){
+            let pressureVal = Math.floor(currentPressure);
+            let stateDesc = "STABLE";
+            if(pressureVal > 85) stateDesc = "CRITICAL OVERPRESSURE";
+            else if (pressureVal > 50) stateDesc ="ELEVATED";
+            selectedMsg = `ENGINE ROOM TELEMETRY: Boiler pressure gauges read ${pressureVal} PSI [Status: ${stateDesc}].`;
+        } else{
+            selectedMsg = historicalDispatches[Math.floor(Math.random() * historicalDispatches.length)];
+        }
         const timestamp = new Date().toLocaleDateString();
         const line = document.createElement('div');
         line.classList.add("dispatch-line","incoming");
@@ -339,8 +347,3 @@ function initTelegraphTicker(){
         screen.scrollTop = screen.scrollHeight;
     }, 25000);
 }
-document.addEventListener("DOMContentLoaded",()=>{
-    updateclock();
-    setInterval(updateclock, 1000);
-    initTelegraphTicker();
-});
