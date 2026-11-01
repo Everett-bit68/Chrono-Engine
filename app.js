@@ -49,6 +49,7 @@ function updateclock(){
     updateSundialShadow(hours, minutes);
     updateAtmospherelighting(hours);
     updatePressure();
+    updatelunarsubdial();
 }
 function updateAtmospherelighting(hours){
     const body = document.body;
@@ -142,6 +143,29 @@ function playSteamhiss(){
     filter.connect(gain);
     gain.connect(audioCtx.destination);
     noise.start();
+}
+function updatelunarsubdial(){
+    const now = new Date();
+    const knownNewMoon = new Date(2024, 0,11 ,11, 57).getTime();
+    const synodicMonth = 29.5 * 86400000;
+    const diff = now.getTime() - knownNewMoon;
+    const cycleProgress = (diff % synodicMonth) /synodicMonth;
+    const ageInDays = cycleProgress * 29.5;
+    let phaseText = "NEW MOON";
+    if (ageInDays >= 2 && ageInDays < 6) phaseText = "WAXING CRES";
+    else if(ageInDays >= 6 && ageInDays < 9) phaseText = "1ST QUARTER";
+    else if(ageInDays >= 9 &&ageInDays <13) phaseText= "WAXING GIBB";
+    else if (ageInDays>= 13 &&ageInDays<17) phaseText="FULL MOON";
+    else if(ageInDays >= 17 && ageInDays < 20) phaseText="WANING GIBB";
+    else if(ageInDays >=20 && ageInDays< 24) phaseText="3RD QUARTER";
+    else if(ageInDays >= 24 && ageInDays <29.5) phaseText="WANING CRES";
+    const label = document.getElementById("lunarPhaseText");
+    const shadow = document.getElementById("lunarShadow");
+    if (label) label.innerText = phaseText;
+    if(shadow){
+        const offset = (cycleProgress - 0.5) * 200;
+        shadow.style.transform = `translateX(${offset}%`;
+    }
 }
 function updatePressure(){
     if (currentPressure < 100){
