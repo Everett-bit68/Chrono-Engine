@@ -178,7 +178,7 @@ function updatelunarsubdial(){
     if (label) label.innerText = phaseText;
     if(shadow){
         const offset = (cycleProgress - 0.5) * 200;
-        shadow.style.transform = `translateX(${offset}%`;
+        shadow.style.transform = `translateX(${offset}%)`;
     }
 }
 function updatePressure(){
@@ -310,10 +310,17 @@ function sendTelegraphPulse(){
     const screen = document.getElementById("tickerScreen");
     const status = document.getElementById("telegraphStatus");
     if (status) status.innerText = "Transmitting Pulse...";
+    const transmissions = [
+        "> [TRANSMISSION] . . - - . . (Station Acknowledged)",
+        "> [TRANSMISSION] - . . - (Signal Query: Pressure Verified)",
+        "> [TRANSMISSION] . . . - - - . . . (SOS/ Routine Check-in)",
+        "> [TRANSMISSION] - - . . - - (Aether-Net Sync Pulse Sent)"
+    ];
+    const randomTx = transmissions[Math.floor(Math.random()* transmissions.length)];
     if (screen){
         const line = document.createElement("div");
         line.classList.add("dispatch-line","user-sent");
-        line.innerText = `> [TRANSMISSION SENT] . . - - . . (Morse Pulse Clicked)`;
+        line.innerText = randomTx;
         screen.appendChild(line);
         screen.scrollTop = screen.scrollHeight;
     }
