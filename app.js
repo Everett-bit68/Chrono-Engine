@@ -267,7 +267,7 @@ function updatePowerReserve(){
             status.innerText = "UNWOUND - CLICK TO WIND";
             status.style.color = "#ff4500";
         } else {
-            status.innerText = `Tension: ${Math.floor(MainspringPower)} Units`;
+            status.innerText = `Tension: ${Math.ceil(MainspringPower)} Units`;
             status.style.color = "var(--brass-primary)";
         }
     }
@@ -347,7 +347,7 @@ function initTelegraphTicker(){
         const timestamp = new Date().toLocaleDateString();
         const line = document.createElement('div');
         line.classList.add("dispatch-line","incoming");
-        line.innerText = `[${timestamp}] ${randomMsg}`;
+        line.innerText = `[${timestamp}] ${selectedMsg}`;
         screen.appendChild(line);
         if(screen.children.length > 20){
             screen.removeChild(screen.children[0]);
