@@ -434,6 +434,38 @@ body.steampunk-theme.time-night{
     text-transform: uppercase;
     text-shadow: 0 1px 0 rgba(255,255,255, 0.3);
 }
+.power-reserve-panel{
+    margin-top: 12px;
+    cursor: pointer;
+    user-select: none;
+    transition: border-color 0.2s;
+}
+.power-reserve-panel:hover{
+    border-color: var(--brass-primary);
+}
+.power-bar-bg{
+    width: 100%;
+    height: 10px;
+    background: #090705;
+    border: 1px solid var(--brass-dark);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 6px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.9);
+}
+.power-bar-fill{
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--copper), var(--brass-primary));
+    transition: width 0.3s ease-out;
+}
+.power-status{
+    font-size: 11px;
+    color: var(--brass-primary);
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
 @keyframes rise-and-fade{
     0%{
         transform: translate(0,0) scale(0.4);
