@@ -398,6 +398,17 @@ function adjustThrottle(val){
         let baseSeconds = 8.0 / aetherMultiplier;
         gearContainer.style.setProperty('--gear-speed',`${baseSeconds}s`);
     }
+    const tubeL = document.getElementById("tubeLeft");
+    const tubeR = document.getElementById("tubeRight");
+    if (tubeL && tubeR){
+        if (aetherMultiplier > 2.0){
+            tubeL.classList.add("overdrive");
+            tubeR.classList.add("overdrive");
+        } else {
+            tubeL.classList.add("overdrive");
+            tubeR.classList.add("overdrive");
+        }
+    }
 }
 function playSteamWhistle(){
     if (isMuted) return;
