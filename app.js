@@ -223,6 +223,28 @@ function updatePressure(){
             status.style.color ="var(--brass-primary)";
         }
     }
+    const crystal = document.getElementById("crystalCluster");
+    const stormStatus = document.getElementById("stormStatus");
+    if (crystal && stormStatus){
+        if (currentPressure > 85 || aetherMultiplier > 2.0){
+            crystal.style.opacity = "0.9";
+            crystal.style.filter = "blue(1px)";
+            crystal.style.transform = "translateX(-50%) scale(1.2)";
+            stormStatus.innerText = "Atmosphere: Turbulent/ Heavy Crystals";
+            stormStatus.style.color = "#ff4500";
+        } else if (currentPressure > 50){
+            crystal.style.opacity = "0.6";
+            crystal.style.filter = "blur(2.5px)";
+            stormStatus.innerText = "Atmosphere: Variable/ Starry Filaments";
+            stormStatus.style.color = "var(--copper)";
+        } else {
+            crystal.style.opacity = "0.3";
+            crystal.style.filter = "blur(4px)";
+            crystal.style.transform = "translateX(-50%) scale(1.0)";
+            stormStatus.innerText = "Atmosphere: Calm & Clear Solutions";
+            stormStatus.style.color = "var(--brass-primary)";
+        }
+    }
 }
 function spawnSteam(){
     const container = document.querySelector('.main-container');
