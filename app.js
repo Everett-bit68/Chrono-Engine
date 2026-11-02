@@ -207,20 +207,26 @@ function updatePressure(){
             gearContainer.style.setProperty('--gear-speed',speedFactor);
         }
     }
+    const alarmLamp = document.getElementById("alarmLamp");
     if (status){
         if (currentPressure > 85){
             status.innerText = "WARNING: OVERPRESSURE!";
             status.style.color = "#ff4500";
+            if (alarmLamp) alarmLamp.classList.add("active");
             if(Math.random() < 0.15){
                 playSteamhiss();
+                playSteamWhistle();
                 spawnSteam();
             }
-        } else if (currentPressure > 50){
+        } else {
+            if (alarmLamp) alarmLamp.classList.remove("active");
+            if (currentPressure > 50){
             status.innerText = "Pressure Building...";
             status.style.color="var(--copper)";
-        } else {
-            status.innerText="Pressure Stable";
-            status.style.color ="var(--brass-primary)";
+            } else {
+                status.innerText="Pressure Stable";
+                status.style.color ="var(--brass-primary)";
+            }
         }
     }
     const crystal = document.getElementById("crystalCluster");
@@ -392,4 +398,20 @@ function adjustThrottle(val){
         let baseSeconds = 8.0 / aetherMultiplier;
         gearContainer.style.setProperty('--gear-speed',`${baseSeconds}s`);
     }
+}
+function playSteamWhistle(){
+    if (isMuted) return;
+    initAudio();
+    if (!audioCtx) return;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+    osc.frequency.linearRampToValueAtTime(880, audioCtx.currentTime + 0.3);
+    gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.35);
 }
