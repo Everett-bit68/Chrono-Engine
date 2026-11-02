@@ -228,14 +228,14 @@ function updatePressure(){
     if (crystal && stormStatus){
         if (currentPressure > 85 || aetherMultiplier > 2.0){
             crystal.style.opacity = "0.9";
-            crystal.style.filter = "blue(1px)";
+            crystal.style.filter = "blur(1px)";
             crystal.style.transform = "translateX(-50%) scale(1.2)";
-            stormStatus.innerText = "Atmosphere: Turbulent/ Heavy Crystals";
+            stormStatus.innerText = "Atmosphere: Turbulent / Heavy Crystals";
             stormStatus.style.color = "#ff4500";
         } else if (currentPressure > 50){
             crystal.style.opacity = "0.6";
             crystal.style.filter = "blur(2.5px)";
-            stormStatus.innerText = "Atmosphere: Variable/ Starry Filaments";
+            stormStatus.innerText = "Atmosphere: Variable / Starry Filaments";
             stormStatus.style.color = "var(--copper)";
         } else {
             crystal.style.opacity = "0.3";
