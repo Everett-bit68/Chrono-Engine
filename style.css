@@ -410,6 +410,7 @@ body.steampunk-theme.time-night{
 .vacuum-tube.overdrive{
     background: radial-gradient(circle at 50% 30%, rgba(138,43,226,0.9)0%, #0d001a 70%);
     box-shadow: 0 0 12px rgba(138,43,226,0.8), inset 0 1px 3px rgba(255,255,255, 0.6);
+    transition: background 0.3s, box-shadow 0.3s;
 }
 .vacuum-tube-label{
     font-size: 10px; color: var(--brass-primary); letter-spacing: 1px;

@@ -405,8 +405,8 @@ function adjustThrottle(val){
             tubeL.classList.add("overdrive");
             tubeR.classList.add("overdrive");
         } else {
-            tubeL.classList.add("overdrive");
-            tubeR.classList.add("overdrive");
+            tubeL.classList.remove("overdrive");
+            tubeR.classList.remove("overdrive");
         }
     }
 }
